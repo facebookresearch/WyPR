@@ -1,0 +1,197 @@
+defaults:
+  # Backbone name [default: pointnet2]
+  - backbone: pointnet2
+  # Dataset name
+  - dataset: scannet
+
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d-%H-%M-%S}
+  sweep:
+    dir: outputs/${now:%Y-%m-%d}-${backbone_name}-${dataset_name}
+    subdir: ${hydra.job.num}
+
+gpus:
+  - 0
+
+# random seed [default: 0]
+seed: -1
+
+# How to do multi-gpu training
+distrib_backend: ddp
+
+# resume training
+resume_path: none
+
+# debug mode
+debug: False
+
+# sementation task is on
+seg_on: True
+
+# sementation task is on
+det_on: True
+
+# Model name [default: segdetnet]
+model: segdetnet
+
+# Output dir to save model checkpoint, logs, dumps
+output_dir: ${model}_${backbone_name}_${dataset_name}
+
+# path to checkpoint 
+checkpoint_path: ""
+
+# Point Number [default: 20000]
+num_point: 40000
+
+# Proposal number [default: 256]
+num_target: 256
+
+# Vote factor [default: 1]
+vote_factor: 1 
+
+# Sampling strategy for vote clusters: vote_fps, seed_fps, random [default: vote_fps]
+cluster_sampling: vote_fps 
+
+# AP IoU threshold [default: 0.25]
+ap_iou_thresh: 0.25  
+
+# Epoch to run [default: 180]
+max_epoch: 200
+
+# Batch Size during training [default: 8]
+batch_size: 8
+
+# number of worker for dataloader [default: 4]
+worker: 4
+
+# Initial learning rate [default: 0.001]
+learning_rate: 0.001
+
+# Optimization L2 weight decay [default: 0]
+weight_decay: 0
+
+# Period of BN decay (in epochs) [default: 20]
+bn_decay_step: 20
+
+# Decay rate for BN decay [default: 0.5]
+bn_decay_rate: 0.5
+
+# init for BN momentum [default: 0.5]
+bn_momentum_init: 0.5
+
+# max for BN momentum [default: 0.001]
+bn_momentum_max: 0.001
+
+# batch_interval [default: 10]
+batch_interval: 5
+
+# evaluate frequncey during training [default: 20]
+eval_freq: 10
+
+# When to decay the learning rate (in epochs) [default: 80,120,160]
+lr_decay_steps: [120, 160, 180]
+
+# Decay rates for lr decay [default: 0.1, 0.1, 0.1]
+lr_decay_rates: [0.1, 0.1, 0.1]  
+
+# A list of AP IoU thresholds [default: 0.25,0.5]
+ap_iou_thresholds: [0.25, 0.5]
+
+# Use class-wise loss weight
+use_class_weight: False
+
+# multi-pass inference
+multi_pass_eval: False
+num_eval_pass: 4
+
+# segmeantion head architecture [default: False]
+seg_head: vanilla
+
+# loss weight for mil segmentation [default: 1.0]
+seg_loss_weight: 1.0
+
+# threshold for segmentation self-training
+seg_pseudo_label_th: 0.85
+
+# semantic segmentation floor heuristics
+# [floor, plane]
+shape_heur: none 
+
+filter_seg_useing_cls: False
+
+# Overwrite existing log and dump folders
+overwrite: False
+
+# Dump results
+dump_results: True
+
+# Use 3D NMS instead of 2D NMS
+use_3d_nms: False
+
+# Use per class NMS
+use_cls_nms: False
+
+# Use old type of NMS, IoBox2Area
+use_old_type_nms: False
+
+# Duplicate each proposal num_class times
+per_class_proposal: False
+
+# NMS IoU threshold. [default: 0.25]
+nms_iou: 0.25
+
+# Filter out predictions with obj prob less than it. [default: 0.05]
+conf_thresh: 0.05
+
+# Faster evaluation by skippling empty bounding box removal.
+faster_eval: False
+
+# Shuffle the dataset during testing (random order)
+shuffle_dataset: False
+
+# Pooling method for MIL
+mil_loss: bce
+mil_pool: avg
+
+det_mil_loss: bce
+
+# Use extreme points to generate bounding boxes
+weak_box: False
+
+# Evaluate on the training set
+eval_on_train: False
+
+# Use consistency loss
+consistency_loss: none
+consistency_loss_weight: 1.0
+
+consist_det_loss: box-kl
+consist_det_loss_weight: 1.0
+
+# Use local smoothness loss (shape regularization)
+smooth_loss: none
+smooth_loss_weight: 1.0
+max_num_shapes: 10
+
+# use cluster centroid to update the center for cluster
+cluster_nsample: [256, 256]
+group_scale: [1.2, 0.8]
+
+# ensemble teacher and student score for seg
+seg_ens: False
+
+# proposals
+precomputed_prop: sf
+
+vis_all: False
+
+# nce loss
+nce_temp: 0.07
+num_samples: 4096
+
+# sampling
+sampling_method: rand
+
+# gradient clip
+grad_clip: -1

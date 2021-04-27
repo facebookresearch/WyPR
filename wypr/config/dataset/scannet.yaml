@@ -1,0 +1,16 @@
+dataset_name: scannet
+
+# Use RGB color in input
+use_color: True
+
+# use surface normal in input
+use_normal: True
+
+# Use V2 box labels for SUN RGB-D dataset
+use_sunrgbd_v2: False
+
+# Do NOT use height signal in input
+no_height: False
+
+# Test on the test set for semantic segmentation
+infer_scannet_test: False
