@@ -1,0 +1,4 @@
+backbone_name: pointnet2
+
+# Backbone features [default: fp2]
+backbone_feat: fp2
