@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>WyPR Project Page</title>
+
+<meta property="og:image" content="images/teaser_fb.jpg">
+<meta property="og:title" content="3D Spatial Recognition without Spatially Labeled 3D">
+
+<script type="text/javascript">
+// redefining default features
+</script>
+<link media="all" href="./files/glab.css" type="text/css" rel="StyleSheet">
+<style type="text/css" media="all">
+IMG {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	FLOAT: right;
+	PADDING-BOTTOM: 0px;
+	PADDING-TOP: 0px
+}
+#primarycontent {
+	MARGIN-LEFT: auto;
+	WIDTH: auto; 
+	MARGIN-RIGHT: auto; 
+	TEXT-ALIGN: left; 
+	max-width: 1000px; 
+}
+BODY {
+	TEXT-ALIGN: center
+}
+</style>
+
+<body>
+
+<div id="primarycontent">
+<center><h1>3D Spatial Recognition without Spatially Labeled 3D</h1></center>
+<center><h2>
+	<a href="https://jason718.github.io/">Zhongzheng Ren</a>&nbsp;&nbsp;&nbsp;
+	<a href="https://imisra.github.io/">Ishan Misra</a>&nbsp;&nbsp;&nbsp;
+	<a href="http://www.alexander-schwing.de/">Alexander G. Schwing</a>&nbsp;&nbsp;&nbsp;
+	<a href="https://rohitgirdhar.github.io/">Rohit Girdhar</a>&nbsp;&nbsp;&nbsp;
+	</h2>
+<center><h2>
+	<a href="https://ai.facebook.com/">Facebook AI Research (FAIR)</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="https://illinois.edu/">UIUC</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</h2></center>
+<center><h2>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2021</h2></center>
+<center><h2><strong>
+	<a href="https://arxiv.org/abs/2105.06461">Paper</a> |
+	<a href="https://github.com/facebookresearch/WyPR">Code</a> |
+	<a href="./files/wypr_talk.pdf">Slides</a> |
+	<a href="https://ai.facebook.com/blog/recognizing-3d-spaces-without-spatial-labels">Blog (Facebook AI)</a> |
+	<a href="./files/bib.txt">Bibtex</a>  |
+	<a href="./files/poster.pdf">Poster</a> </strong> </h2></center>
+
+<br>
+<center><p><img src="./files/teaser.jpg" width="100%"></p></center>
+
+<br>
+<h1 align="center">Abstract</h1>
+<div style="font-size:14px"><p align="justify">We introduce WyPR, a Weakly-supervised framework for Point cloud Recognition, 
+	requiring only scene-level class tags as supervision. WyPR jointly addresses three core 3D recognition tasks: point-level semantic segmentation, 
+	3D proposal generation, and 3D object detection, coupling their predictions through self and cross-task consistency losses. 
+	We show that in conjunction with standard multiple-instance learning objectives, 
+	WyPR can detect and segment objects in point cloud without access to any spatial labels at training time. 
+	We demonstrate its efficacy using the ScanNet and S3DIS datasets, outperforming prior state of the art on 
+	weakly-supervised segmentation by more than 6% mIoU. In addition, we set up the first benchmark for weakly-supervised 
+	3D object detection on both datasets, where WyPR outperforms standard approaches and establishes strong baselines for future work.</p></div>
+
+<h1 align="center">CVPR video</h1>
+<p><video width="800" height="500" controls preload="auto"><source src="files/cvpr-talk.mp4" type="video/mp4"></video></p>
+
+
+<h1 align="center">Method</h1>
+<center><img src="files/archi.png" width="100%"></center>
+<div style="font-size:14px"><p align="justify"> <strong>Approach Overview</strong>. A backbone network extracts geometric 
+	features which are used by the segmentation head to compute a point-level segmentation map. The 
+	segmentation map is passed into the 3D proposal generation module Geometric Selective Search (GSS), and the resulting 
+	proposals along with original features are used to detect 3D object instances. Through a 
+	series of self and cross-task consistency losses along with multiple-instance learning 
+	objectives, WyPR is trained end-to-end using only scene-level tags as supervision.</p></div>
+
+<center><img src="files/vis_wypr.jpg" width="95%"><br></center>
+<div style="font-size:14px"><p align="justify"> <strong>Visualization of the WyPR results</strong>. We show the 
+	qualitative comparison between ground-truth labels and our predictions. 
+	We show both detection and segmentation results for the same scene.</p></div>
+
+
+<h1 align="center">Geometric Selective Search (GSS)</h1>
+<center><img src="files/gss.png" width="100%"></center><br><br>
+<div style="font-size:14px"><p align="justify"> <strong>GSS Overview</strong>. Our algorithm takes as input the point 
+	cloud and detected planes (left column). It then hierarchically groups the neighboring planes into 
+	sub-regions and generates 3D proposals for the combined regions (middle column). We
+	run the algorithm multiple times with different grouping criteria to encourage high recall 
+	of final output proposals (right column).</p></div><br>
+
+<center><img src="files/vis_gss.jpg" width="95%"><br></center>
+<div style="font-size:14px"><p align="justify"> <strong>Visualization of the GSS computed proposals</strong>. Top three 
+	rows show all the computed 3D proposals, from which we observe that the proposals are mainly around 
+	object areas. The bottom four rows show the proposals which best  overlap with ground-truth boxes. 
+	GSS generates 3D proposals with great recall for various objects in complex scenes.</p></div>
+
+
+<br>
+<h1>Related Work</h1>
+<p align="left"> C. R. Qi, O. Litany, K. He, and L. Guibas <a href="https://arxiv.org/abs/2004.04725"><strong>
+Deep Hough Voting for 3D Object Detection in Point Clouds.</strong></a> CVPR 2020. </p>
+<p align="left"> J. Wei, et al., <a href="https://arxiv.org/abs/2003.13035"><strong>
+Multi-path region mining for weakly supervised 3d semantic segmentation on point clouds.</strong></a> CVPR 2020. </p>
+<p align="left"> Z. Qin, J. Wang, and Y. Lu <a href="https://arxiv.org/abs/2007.13970"><strong>
+Weakly supervised 3d object detection from point clouds.</strong></a> ACM MM 2020. </p>
+<p align="left">Z. Ren, et al., <a href="https://arxiv.org/abs/2004.04725"><strong>
+Instance-aware, Context-focused, and Memory-efficient Weakly Supervised Object Detection.</strong></a> CVPR 2020. </p>
+
+
+<br>
+<h1>Acknowledgement</h1>
+<p align="left">This work is supported in part by
+	NSF under Grant #1718221, 2008387 and MRI #1725729,
+	NIFA award 2020-67021-32799. We thank Zaiwei Zhang and the Facebook AI team for helpful discussions and feedback.
+    We also thank the <a href="https://nvlabs.github.io/SPADE/">SPADE </a> folks for the webpage template.
+</p>

@@ -1,0 +1,6 @@
+@inproceedings{ren2021wypr,
+  title = {3D Spatial Recognition without Spatially Labeled 3D},
+  author = {Ren, Zhongzheng and Misra, Ishan and Schwing, Alexander G. and Girdhar, Rohit},
+  booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year = {2021}
+}
